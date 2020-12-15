@@ -1,0 +1,43 @@
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+        var stateData = [], cityData = [], studentList = [];
+
+    $(document).ready(function () {
+            debugger
+            GetStateList();
+            GetCityList();
+
+        });
+
+        function GetStateList() {
+            $.get('/Home/GetStateList', function (res) {
+                if (res.isSuccess) {
+                    stateData = res.stateData;
+                    $('#ddlSelectState').html(stateData.map(x => `<option value="${x.StateId}">${x.StateName}</option>`).join(''));
+                }
+                else {
+                    alert(res.message)
+                }
+            }).fail(function (err) {
+                alert("Error Occured!")
+            });
+        }
+
+        $(document).on('change', '#ddlSelectState', function () {
+            var cityList = cityData.filter(x => x.StateId == $(this).val());
+            $('#ddlSelectCity').html(cityList.map(x => `<option value="${x.CityId}">${x.CityName}</option>`).join(''));
+        });
+
+        function GetCityList() {
+            $.get('/Home/GetCityList', function (res) {
+                if (res.isSuccess) {
+                    cityData = res.cityData;
+                }
+                else {
+                    alert(res.message)
+                }
+            }).fail(function (err) {
+                alert("Error Occured!")
+            });
+        }
+</script>
