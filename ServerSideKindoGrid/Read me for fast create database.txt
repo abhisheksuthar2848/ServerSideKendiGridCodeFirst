@@ -1,0 +1,31 @@
+----------connection string------------
+
+<connectionStrings>
+	<add name="StringDbContext" connectionString="Data Source=LEGION;Initial Catalog=DemoServerSideKendoGrid;Integrated Security=True" providerName="System.Data.SqlClient" />
+</connectionStrings>
+
+----------crearte  CDBContext class -------
+
+using System.Data.Entity;
+
+
+ public class CDbContext:DbContext
+    {
+        public CDbContext() : base("StringDbContext") { }
+
+        public DbSet<Department> departments { get; set; }
+        public DbSet<Employee> employees { get; set; }
+
+    }
+
+-------Example for forenkey reference----
+
+ 	[ForeignKey("Department")]
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+
+-----------migration command------------
+Install-Package EntityFramework
+enable-migration
+add-migration createtable
+update-database
