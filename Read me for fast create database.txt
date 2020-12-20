@@ -12,7 +12,7 @@ using System.Data.Entity;
  public class CDbContext:DbContext
     {
         public CDbContext() : base("StringDbContext") { }
-
+	
         public DbSet<Department> departments { get; set; }
         public DbSet<Employee> employees { get; set; }
 
@@ -26,6 +26,6 @@ using System.Data.Entity;
 
 -----------migration command------------
 Install-Package EntityFramework
-enable-migration
+Enable-Migrations
 add-migration createtable
 update-database
